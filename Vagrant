@@ -1,0 +1,526 @@
+vagrant init -h
+Usage: vagrant init [options] [name [url]]
+
+Options:
+
+        --box-version VERSION        Version of the box to add
+    -f, --force                      Overwrite existing Vagrantfile
+    -m, --minimal                    Use minimal Vagrantfile template (no help comments). Ignored with --template
+        --output FILE                Output path for the box. '-' for stdout
+        --template FILE              Path to custom Vagrantfile template
+    -h, --help                       Print this help
+
+vagrant box
+Usage: vagrant box <subcommand> [<args>] :::This adds a box with the given address to Vagrant
+
+Available subcommands:
+     add    -   This adds a box with the given address to Vagrant
+     list   -   This command lists all the boxes that are installed into Vagrant.
+     outdated-  This command tells you whether or not the box you are using in your current Vagrant environment is outdated. If the --global flag is present, every installed box will be checked for updates.
+                Checking for updates involves refreshing the metadata associated with a box. This generally requires an internet connection.
+     prune  -   This command removes old versions of installed boxes. If the box is currently in use vagrant will ask for confirmation.
+                --dry-run - Only print the boxes that would be removed.
+                --provider PROVIDER - The specific provider type for the boxes to destroy.
+                --name NAME - The specific box name to check for outdated versions.
+                --force - Destroy without confirmation even when box is in use.
+     remove -   This command removes a box from Vagrant that matches the given name.
+     repackage- This command repackages the given box and puts it in the current directory so you can redistribute it.
+     update   - This command updates the box for the current Vagrant environment if there are updates available.
+                Note that updating the box will not update an already-running Vagrant machine. To reflect the changes in the box, you will have to destroy and bring back up the Vagrant machine.
+                If you just want to check if there are updates available, use the vagrant box outdated command.
+
+vagrant cloud
+Usage: vagrant cloud <subcommand> [<args>]
+
+The cloud command can be used for taking actions against
+Vagrant Cloud like searching or uploading a Vagrant Box
+
+Available subcommands:
+     auth            For various authorization operations on Vagrant Cloud (login, logout, whoami)
+     box             For managing a Vagrant box entry on Vagrant Cloud (create, delete, show, update)
+     provider        For managing a Vagrant box's provider options (create, delete, update, upload)
+     publish         A complete solution for creating or updating a new box on Vagrant Cloud
+     search          Search Vagrant Cloud for available boxes
+     version         For managing a Vagrant box's versions (create, delete, release, revoke, update)
+
+Securely authenticate with Vagrant Cloud using a token:
+$ vagrant cloud auth login --token ABCD1234
+
+vagrant connect -   The connect command complements the share command by enabling access to shared environments.
+
+vagrant destroy -   stops the running machine Vagrant is managing and destroys all resources that were created during the machine creation process.
+
+vagrant global-status 
+id       name    provider   state   directory
+-------------------------------------------------------------------------------------------------------------------------
+2667dcd  default virtualbox running /Users/pavankumartalla/Desktop/100 Days of DevOps/Practice-Session/Ansible/playbooks
+
+The above shows information about all known Vagrant environments
+on this machine. This data is cached and may not be completely
+up-to-date (use "vagrant global-status --prune" to prune invalid
+entries). To interact with any of the machines, you can go to that
+directory and run Vagrant, or you can use the ID directly with
+Vagrant commands from any directory. For example:
+"vagrant destroy 1a2b3c4d"
+
+vagrant halt    -   This command shuts down the running machine Vagrant is managing.
+                    Vagrant will first attempt to gracefully shut down the machine by running the guest OS shutdown mechanism. If this fails, or if the --force flag is specified, Vagrant will effectively just shut off power to the machine.
+
+vagrant init    -   This initializes the current directory to be a Vagrant environment by creating an initial Vagrantfile if one does not already exist.
+                    If a first argument is given, it will prepopulate the config.vm.box setting in the created Vagrantfile.
+                    If a second argument is given, it will prepopulate the config.vm.box_url setting in the created Vagrantfile.
+
+vagrant package [name|id]   -   This packages a currently running VirtualBox or Hyper-V environment into a re-usable box.
+
+vagrant plugin -    This is the command used to manage plugins.
+The main functionality of this command is exposed via another level of subcommands:	(expunge, install, license, list, repair, uninstall, update)
+
+vagrant plugin expunge- This removes all user installed plugin information. All plugin gems, their dependencies, and the plugins.json file are removed. This command provides a simple mechanism to fully remove all user installed custom plugins.
+
+When upgrading Vagrant it may be required to reinstall plugins due to an internal incompatibility. The expunge command can help make that process easier by attempting to automatically reinstall currently configured plugins:
+# Delete all plugins and reinstall
+$ vagrant plugin expunge --reinstall
+
+vagrant plugin install <name>...    -   This installs a plugin with the given name or file path. If the name is not a path to a file, then the plugin is installed from remote repositories, usually RubyGems. This command will also update a plugin if it is already installed, but you can also use vagrant plugin update for that.
+# Installing a plugin from a known gem source
+$ vagrant plugin install my-plugin
+
+# Installing a plugin from a local file source
+$ vagrant plugin install /path/to/my-plugin.gem
+
+vagrant plugin license <name> <license-file>
+This command installs a license for a proprietary Vagrant plugin
+
+vagrant plugin list -   This lists all installed plugins and their respective installed versions
+Plugin Repair   -   Vagrant may fail to properly initialize user installed custom plugins. This can be caused my improper plugin installation/removal, or by manual manipulation of plugin related files like the plugins.json data file. Vagrant can attempt to automatically repair the problem.
+                    If automatic repair is not successful, refer to the expunge command
+
+vagrant plugin uninstall <name> -   This uninstalls the plugin with the given name. Any dependencies of the plugin will also be uninstalled assuming no other plugin needs them.
+
+vagrant plugin update [<name>]  -   This updates the plugins that are installed within Vagrant.
+
+vagrant port [name|id]  -   The port command displays the full list of guest ports mapped to the host machine ports
+vagrant powershell  -   This will open a PowerShell prompt on the host into a running Vagrant guest machine.
+vagrant provision [vm-name] -   This command is a great way to quickly test any provisioners, and is especially useful for incremental development of shell scripts, Chef cookbooks, or Puppet modules. You can just make simple modifications to the provisioning scripts on your machine, run a vagrant provision, and check for the desired results. Rinse and repeat.
+vagrant rdp -   This will start an RDP client for a remote desktop session with the guest. This only works for Vagrant environments that support remote desktop, which is typically only Windows.
+vagrant reload [name|id]    -   The equivalent of running a halt followed by an up.
+                                The configured provisioners will not run again, by default. You can force the provisioners to re-run by specifying the --provision flag.
+vagrant resume [name|id]    -   This resumes a Vagrant managed machine that was previously suspended, perhaps with the suspend command.
+vagrant share   -   The share command initializes a Vagrant Share session, allowing you to share your Vagrant environment with anyone in the world, enabling collaboration directly in your Vagrant environment in almost any network environment.
+vagrant snapshot    -   This is the command used to manage snapshots with the guest machine. Snapshots record a point-in-time state of a guest machine. You can then quickly restore to this environment. This lets you experiment and try things and quickly restore back to a previous state.
+The main functionality of this command is exposed via even more subcommands:
+
+push    -   This takes a snapshot and pushes it onto the snapshot stack.
+pop     -   This command is the inverse of vagrant snapshot push: it will restore the pushed state.
+save    -   This command saves a new named snapshot. If this command is used, the push and pop subcommands cannot be safely used.
+restore -   This command restores the named snapshot.
+list    -   This command will list all the snapshots taken.
+delete  -   This command will delete the named snapshot.
+
+vagrant ssh [name|id] [-- extra_ssh_args]
+
+This will SSH into a running Vagrant machine and give you access to a shell.
+On a simple vagrant project, the instance created will be named default.
+Vagrant will ssh into this instance without the instance name:
+On multi-machine setups, you can login to each vm using the name as displayed on vagrant status
+On a system with machines running from different projects, you could use the id as listed in vagrant global-status
+
+vagrant ssh-config [name|id]
+
+This will output valid configuration for an SSH config file to SSH into the running Vagrant machine from ssh directly (instead of using vagrant ssh).
+# save the config to a file
+vagrant ssh-config > vagrant-ssh
+
+# run ssh with the file.
+ssh -F vagrant-ssh default
+
+vagrant status [name|id]    -   This will tell you the state of the machines Vagrant is managing.
+vagrant suspend [name|id]   -   This suspends the guest machine Vagrant is managing, rather than fully shutting it down or destroying it.
+                                A suspend effectively saves the exact point-in-time state of the machine, so that when you resume it later, it begins running immediately from that point, rather than doing a full boot.
+                                This generally requires extra disk space to store all the contents of the RAM within your guest machine, but the machine no longer consumes the RAM of your host machine or CPU cycles while it is suspended.
+
+vagrant up [name|id]    -   This command creates and configures guest machines according to your Vagrantfile.
+vagrant upload source [destination] [name|id]   -   This command uploads files and directories from the host to the guest machine.
+
+You would need a separate config.vim.provision section for each file. You can add multiple of those sections to your Vagrantfile, like this:
+
+config.vm.provision :file do |file|
+  file.source = "/etc/file1.txt"
+  file.destination = "/tmp/1.txt"
+end
+
+config.vm.provision :file do |file|
+  file.source = "/etc/file2.txt"
+  file.destination = "/tmp/2.txt"
+end
+
+vagrant validate -  This command validates your Vagrantfile.
+vagrant version
+
+Vagrant Share
+=============
+Vagrant Share allows you to share your Vagrant environment with anyone in the world, enabling collaboration directly in your Vagrant environment in almost any network environment with just a single command: vagrant share.
+Vagrant share has three primary modes or features. These features are not mutually exclusive, meaning that any combination of them can be active at any given time:
+    HTTP sharing will create a URL that you can give to anyone. This URL will route directly into your Vagrant environment. The person using this URL does not need Vagrant installed, so it can be shared with anyone. This is useful for testing webhooks or showing your work to clients, teammates, managers, etc.
+    SSH sharing will allow instant SSH access to your Vagrant environment by anyone by running vagrant connect --ssh on the remote side. This is useful for pair programming, debugging ops problems, etc.
+    General sharing allows anyone to access any exposed port of your Vagrant environment by running vagrant connect on the remote side. This is useful if the remote side wants to access your Vagrant environment as if it were a computer on the LAN.
+
+Vagrant Share is a Vagrant plugin that must be installed. It is not included with Vagrant system packages. To install the Vagrant Share plugin, run the following command:
+$ vagrant plugin install vagrant-share
+Vagrant Share requires ngrok to be used.
+
+SSH sharing is disabled by default as a security measure. To enable SSH sharing, simply supply the --ssh flag when calling vagrant share.
+
+Just run vagrant share --ssh!
+When SSH sharing is enabled, Vagrant generates a brand new keypair for SSH access. The public key portion is automatically inserted into the Vagrant machine, and the private key portion is provided to the user connecting to the Vagrant share. This private key is encrypted using a password that you will be prompted for. This password is never transmitted across the network by Vagrant, and is an extra layer of security preventing anyone who may know your share name from easily accessing your machine.
+After running vagrant share --ssh, it will output the name of your share:
+
+Vagrant can share any or every port to your Vagrant environment, not just SSH and HTTP. The vagrant connect command gives the connecting person a static IP they can use to communicate to the shared Vagrant environment. Any TCP traffic sent to this IP is sent to the shared Vagrant environment.
+    Just call vagrant share --full. This will automatically share as many ports as possible for remote connections. Please see the Vagrant share security page for more information.
+    Note the share name at the end of calling vagrant share --full, and give this to the person who wants to connect to your machine. They simply have to call vagrant connect NAME. This will give them a static IP they can use to access your Vagrant environment.
+
+    vagrant connect works by doing what Vagrant does best: managing virtual machines. vagrant connect creates a tiny virtual machine that takes up only around 20 MB in RAM, using VirtualBox or VMware (more provider support is coming soon).
+    Any traffic sent to this tiny virtual machine is then proxied through to the shared Vagrant environment as if it were directed at it.
+
+Vagrantfile
+The primary function of the Vagrantfile is to describe the type of machine required for a project, and how to configure and provision these machines. Vagrantfiles are called Vagrantfiles because the actual literal filename for the file is Vagrantfile (casing does not matter unless your file system is running in a strict case sensitive mode).
+Vagrant is meant to run with one Vagrantfile per project, and the Vagrantfile is supposed to be committed to version control. This allows other developers involved in the project to check out the code, run vagrant up, and be on their way. Vagrantfiles are portable across every platform Vagrant supports. The syntax of Vagrantfiles is Ruby.
+
+Lookup Path
+============
+
+When you run any vagrant command, Vagrant climbs up the directory tree looking for the first Vagrantfile it can find, starting first in the current directory. So if you run vagrant in /home/mitchellh/projects/foo, it will search the following paths in order for a Vagrantfile, until it finds one:
+
+/home/mitchellh/projects/foo/Vagrantfile
+/home/mitchellh/projects/Vagrantfile
+/home/mitchellh/Vagrantfile
+/home/Vagrantfile
+/Vagrantfile
+This feature lets you run vagrant from any directory in your project.
+
+You can change the starting directory where Vagrant looks for a Vagrantfile by setting the VAGRANT_CWD environmental variable to some other path.
+
+Load Order and Merging
+======================
+An important concept to understand is how Vagrant loads Vagrantfiles. Vagrant actually loads a series of Vagrantfiles, merging the settings as it goes. This allows Vagrantfiles of varying level of specificity to override prior settings. Vagrantfiles are loaded in the order shown below. Note that if a Vagrantfile is not found at any step, Vagrant continues with the next step.
+
+- Vagrantfile packaged with the box that is to be used for a given machine.
+- Vagrantfile in your Vagrant home directory (defaults to ~/.vagrant.d). This lets you specify some defaults for your system user.
+- Vagrantfile from the project directory. This is the Vagrantfile that you will be modifying most of the time.
+- Multi-machine overrides if any.
+- Provider-specific overrides, if any.
+
+Configuration Version
+---------------------
+If you run vagrant init today, the Vagrantfile will be in roughly the following format:
+
+Vagrant.configure("2") do |config|
+  # ...
+end
+The "2" in the first line above represents the version of the configuration object config that will be used for configuration for that block (the section between the do and the end). This object can be very different from version to version.
+The important thing to understand as a general user of Vagrant is that within a single configuration section, only a single version can be used. You cannot use the new config.vm.provider configurations in a version 1 configuration section. Likewise, config.vm.forward_port will not work in a version 2 configuration section (it was renamed).
+If you want, you can mix and match multiple configuration versions in the same Vagrantfile. This is useful if you found some useful configuration snippet or something that you want to use. Example:
+
+Vagrant.configure("1") do |config|
+  # v1 configs...
+end
+
+Vagrant.configure("2") do |config|
+  # v2 configs...
+end
+
+Loop Over VM Definitions
+If you want to apply a slightly different configuration to many multi-machine machines, you can use a loop to do this. For example, if you wanted to create three machines:
+
+(1..3).each do |i|
+  config.vm.define "node-#{i}" do |node|
+    node.vm.provision "shell",
+      inline: "echo hello from node #{i}"
+  end
+end
+
+Machine Settings (config.vm)
+----------------------------
+config.vm.base_mac (string) - The MAC address to be assigned to the default NAT interface on the guest. 
+
+config.vm.base_address (string) - The IP address to be assigned to the default NAT interface on the guest. 
+
+config.vm.boot_timeout (integer) - The time in seconds that Vagrant will wait for the machine to boot and be accessible. By default this is 300 seconds.
+
+config.vm.box (string) - This configures what box the machine will be brought up against. The value here should be the name of an installed box or a shorthand name of a box in HashiCorp's Vagrant Cloud.
+
+config.vm.box_check_update (boolean) - If true, Vagrant will check for updates to the configured box on every vagrant up. If an update is found, Vagrant will tell the user. By default this is true. Updates will only be checked for boxes that properly support updates.
+
+config.vm.box_download_checksum (string) - The checksum of the box specified by config.vm.box_url. If not specified, no checksum comparison will be done. If specified, Vagrant will compare the checksum of the downloaded box to this value and error if they do not match. Checksum checking is only done when Vagrant must download the box. If this is specified, then config.vm.box_download_checksum_type must also be specified.
+
+config.vm.box_download_checksum_type (string) - The type of checksum specified by config.vm.box_download_checksum (if any). Supported values are currently "md5", "sha1", and "sha256".
+
+config.vm.box_download_client_cert (string) - Path to a client certificate to use when downloading the box, if it is necessary. By default, no client certificate is used to download the box.
+
+config.vm.box_download_ca_cert (string) - Path to a CA cert bundle to use when downloading a box directly. By default, Vagrant will use the Mozilla CA cert bundle.
+
+config.vm.box_download_ca_path (string) - Path to a directory containing CA certificates for downloading a box directly. By default, Vagrant will use the Mozilla CA cert bundle.
+
+config.vm.box_download_insecure (boolean) - If true, then SSL certificates from the server will not be verified. By default, if the URL is an HTTPS URL, then SSL certs will be verified.
+
+config.vm.box_download_location_trusted (boolean) - If true, then all HTTP redirects will be treated as trusted. That means credentials used for initial URL will be used for all subsequent redirects. By default, redirect locations are untrusted so credentials (if specified) used only for initial HTTP request.
+
+config.vm.box_url (string, array of strings) - The URL that the configured box can be found at. If config.vm.box is a shorthand to a box in HashiCorp's Vagrant Cloud then this value does not need to be specified. Otherwise, it should point to the proper place where the box can be found if it is not installed. This can also be an array of multiple URLs. The URLs will be tried in order.
+
+Note that any client certificates, insecure download settings, and so on will apply to all URLs in this list. The URLs can also be local files by using the file:// scheme. For example: "file:///tmp/test.box".
+
+config.vm.box_version (string) - The version of the box to use. This defaults to ">= 0" (the latest version available). This can contain an arbitrary list of constraints, separated by commas, such as: >= 1.0, < 1.5. When constraints are given, Vagrant will use the latest available box satisfying these constraints.
+
+config.vm.communicator (string) - The communicator type to use to connect to the guest box. By default this is "ssh", but should be changed to "winrm" for Windows guests.
+
+config.vm.graceful_halt_timeout (integer) - The time in seconds that Vagrant will wait for the machine to gracefully halt when vagrant halt is called. Defaults to 60 seconds.
+
+config.vm.guest (string, symbol) - The guest OS that will be running within this machine. This defaults to :linux, and Vagrant will auto-detect the proper distro. However, this should be changed to :windows for Windows guests. Vagrant needs to know this information to perform some guest OS-specific things such as mounting folders and configuring networks.
+
+config.vm.hostname (string) - The hostname the machine should have. Defaults to nil. If nil, Vagrant will not manage the hostname. If set to a string, the hostname will be set on boot. If set, Vagrant will update /etc/hosts on the guest with the configured hostname.
+
+config.vm.ignore_box_vagrantfile (boolean) - If true, Vagrant will not load the the settings found inside a boxes Vagrantfile, if present. Defaults to false.
+
+config.vm.network - Configures networks on the machine. Please see the networking page for more information.
+
+config.vm.post_up_message (string) - A message to show after vagrant up. This will be shown to the user and is useful for containing instructions such as how to access various components of the development environment.
+
+config.vm.provider - Configures provider-specific configuration, which is used to modify settings which are specific to a certain provider. If the provider you are configuring does not exist or is not setup on the system of the person who runs vagrant up, Vagrant will ignore this configuration block. This allows a Vagrantfile that is configured for many providers to be shared among a group of people who may not have all the same providers installed.
+
+config.vm.provision - Configures provisioners on the machine, so that software can be automatically installed and configured when the machine is created. Please see the page on provisioners for more information on how this setting works.
+
+config.vm.synced_folder - Configures synced folders on the machine, so that folders on your host machine can be synced to and from the guest machine. Please see the page on synced folders for more information on how this setting works.
+
+config.vm.usable_port_range (range) - A range of ports Vagrant can use for handling port collisions and such. Defaults to 2200..2250.
+
+SSH Settings(config.ssh)
+------------------------
+The settings within config.ssh relate to configuring how Vagrant will access your machine over SSH.
+
+config.ssh.compression (boolean) - If false, this setting will not include the compression setting when ssh'ing into a machine. If this is not set, it will default to true and Compression=yes will be enabled with ssh.
+
+config.ssh.config (string) - Path to a custom ssh_config file to use for configuring the SSH connections.
+
+config.ssh.dsa_authentication (boolean) - If false, this setting will not include DSAAuthentication when ssh'ing into a machine. If this is not set, it will default to true and DSAAuthentication=yes will be used with ssh.
+
+config.ssh.export_command_template (string) - The template used to generate exported environment variables in the active session. This can be useful when using a Bourne incompatible shell like C shell. The template supports two variables which are replaced with the desired environment variable key and environment variable value: %ENV_KEY% and %ENV_VALUE%. The default template is:
+
+config.ssh.export_command_template = 'export %ENV_KEY%="%ENV_VALUE%"'
+config.ssh.extra_args (array of strings) - This settings value is passed directly into the ssh executable. This allows you to pass any arbitrary commands to do things such as reverse tunneling down into the ssh program. These options can either be single flags set as strings such as "-6" for IPV6 or an array of arguments such as ["-L", "8008:localhost:80"] for enabling a tunnel from host port 8008 to port 80 on guest.
+
+config.ssh.forward_agent (boolean) - If true, agent forwarding over SSH connections is enabled. Defaults to false.
+
+config.ssh.forward_env (array of strings) - An array of host environment variables to forward to the guest. If you are familiar with OpenSSH, this corresponds to the SendEnv parameter.
+
+config.ssh.forward_env = ["CUSTOM_VAR"]
+config.ssh.forward_x11 (boolean) - If true, X11 forwarding over SSH connections is enabled. Defaults to false.
+
+config.ssh.guest_port (integer) - The port on the guest that SSH is running on. This is used by some providers to detect forwarded ports for SSH. For example, if this is set to 22 (the default), and Vagrant detects a forwarded port to port 22 on the guest from port 4567 on the host, Vagrant will attempt to use port 4567 to talk to the guest if there is no other option.
+
+config.ssh.host (string) - The hostname or IP to SSH into. By default this is empty, because the provider usually figures this out for you.
+
+config.ssh.insert_key (boolean) - If true, Vagrant will automatically insert a keypair to use for SSH, replacing Vagrant's default insecure key inside the machine if detected. By default, this is true.
+
+This only has an effect if you do not already use private keys for authentication or if you are relying on the default insecure key. If you do not have to care about security in your project and want to keep using the default insecure key, set this to false.
+
+config.ssh.keep_alive (boolean) - If true, this setting SSH will send keep-alive packets every 5 seconds by default to keep connections alive.
+
+config.ssh.keys_only (boolean) - Only use Vagrant-provided SSH private keys (do not use any keys stored in ssh-agent). The default value is true.
+
+config.ssh.paranoid (boolean) - Perform strict host-key verification. The default value is false.
+
+Deprecation: The config.ssh.paranoid option is deprecated and will be removed in a future release. Please use the config.ssh.verify_host_key option instead.
+
+config.ssh.password (string) - This sets a password that Vagrant will use to authenticate the SSH user. Note that Vagrant recommends you use key-based authentication rather than a password (see private_key_path) below. If you use a password, Vagrant will automatically insert a keypair if insert_key is true.
+
+config.ssh.port (integer) - The port to SSH into. By default this is port 22.
+
+config.ssh.private_key_path (string, array of strings) - The path to the private key to use to SSH into the guest machine. By default this is the insecure private key that ships with Vagrant, since that is what public boxes use. If you make your own custom box with a custom SSH key, this should point to that private key. You can also specify multiple private keys by setting this to be an array. This is useful, for example, if you use the default private key to bootstrap the machine, but replace it with perhaps a more secure key later.
+
+config.ssh.proxy_command (string) - A command-line command to execute that receives the data to send to SSH on stdin. This can be used to proxy the SSH connection. %h in the command is replaced with the host and %p is replaced with the port.
+
+config.ssh.pty (boolean) - If true, pty will be used for provisioning. Defaults to false.
+
+This setting is an advanced feature that should not be enabled unless absolutely necessary. It breaks some other features of Vagrant, and is really only exposed for cases where it is absolutely necessary. If you can find a way to not use a pty, that is recommended instead.
+
+When pty is enabled, it is important to note that command output will not be streamed to the UI. Instead, the output will be delivered in full to the UI once the command has completed.
+
+config.ssh.remote_user (string) - The "remote user" value used to replace the %r character(s) used within a configured ProxyCommand. This value is only used by the net-ssh library (ignored by the ssh executable) and should not be used in general. This defaults to the value of config.ssh.username.
+
+config.ssh.shell (string) - The shell to use when executing SSH commands from Vagrant. By default this is bash -l. Note that this has no effect on the shell you get when you run vagrant ssh. This configuration option only affects the shell to use when executing commands internally in Vagrant.
+
+config.ssh.sudo_command (string) - The command to use when executing a command with sudo. This defaults to sudo -E -H %c. The %c will be replaced by the command that is being executed.
+
+config.ssh.username (string) - This sets the username that Vagrant will SSH as by default. Providers are free to override this if they detect a more appropriate user. By default this is "vagrant", since that is what most public boxes are made as.
+
+config.ssh.verify_host_key (string, symbol) - Perform strict host-key verification. The default value is :never.
+
+Vagrant Settings(config.vagrant):
+---------------------------------
+The settings within config.vagrant modify the behavior of Vagrant itself.
+
+config.vagrant.host (string, symbol) - This sets the type of host machine that is running Vagrant. By default this is :detect, which causes Vagrant to auto-detect the host. Vagrant needs to know this information in order to perform some host-specific things, such as preparing NFS folders if they're enabled. You should only manually set this if auto-detection fails.
+
+config.vagrant.plugins - (string, array, hash) - Define plugin, list of plugins, or definition of plugins to install for the local project. Vagrant will require these plugins be installed and available for the project. If the plugins are not available, it will attempt to automatically install them into the local project. When requiring a single plugin, a string can be provided:
+
+config.vagrant.plugins = "vagrant-plugin"
+If multiple plugins are required, they can be provided as an array:
+
+config.vagrant.plugins = ["vagrant-plugin", "vagrant-other-plugin"]
+Plugins can also be defined as a Hash, which supports setting extra options for the plugins. When a Hash is used, the key is the name of the plugin, and the value is a Hash of options for the plugin. For example, to set an explicit version of a plugin to install:
+
+config.vagrant.plugins = {"vagrant-scp" => {"version" => "1.0.0"}}
+Supported options are:
+
+entry_point - Path for Vagrant to load plugin
+sources - Custom sources for downloading plugin
+version - Version constraint for plugin
+config.vagrant.sensitive - (string, array) - Value or list of values that should not be displayed in Vagrant's output. Value(s) will be removed from Vagrant's normal UI output as well as logger output.
+
+config.vagrant.sensitive = ["MySecretPassword", ENV["MY_TOKEN"]]
+
+$ vagrant init hashicorp/precise64
+or you can update your Vagrantfile as follows:
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "hashicorp/precise64"
+end
+
+Creating a Base Box
+-------------------
+There are a special category of boxes known as "base boxes." These boxes contain the bare minimum required for Vagrant to function, are generally not made by repackaging an existing Vagrant environment (hence the "base" in the "base box").
+
+For example, the Ubuntu boxes provided by the Vagrant project (such as "precise64") are base boxes. They were created from a minimal Ubuntu install from an ISO, rather than repackaging an existing environment.
+
+Base boxes are extremely useful for having a clean slate starting point from which to build future development environments. The Vagrant project hopes in the future to be able to provide base boxes for many more operating systems. Until then, this page documents how you can create your own base box.
+
+Advanced topic! Creating a base box can be a time consuming and tedious process, and is not recommended for new Vagrant users. If you are just getting started with Vagrant, we recommend trying to find existing base boxes to use first.
+
+What's in a Base Box?
+A base box typically consists of only a bare minimum set of software for Vagrant to function. As an example, a Linux box may contain only the following:
+
+Package manager
+SSH
+SSH user so Vagrant can connect
+Perhaps Chef, Puppet, etc. but not strictly required.
+In addition to this, each provider may require additional software. For example, if you are making a base box for VirtualBox, you will want to include the VirtualBox guest additions so that shared folders work properly. But if you are making an AWS base box, this is not required.
+
+Packer and Vagrant Cloud
+------------------------
+We strongly recommend using Packer to create reproducible builds for your base boxes, as well as automating the builds. Read more about automating Vagrant box creation with Packer in the Packer documentation.
+
+Disk Space
+When creating a base box, make sure the user will have enough disk space to do interesting things, without being annoying. For example, in VirtualBox, you should create a dynamically resizing drive with a large maximum size. This causes the actual footprint of the drive to be small initially, but to dynamically grow towards the max size as disk space is needed, providing the most flexibility for the end user.
+
+If you are creating an AWS base box, do not force the AMI to allocate terabytes of EBS storage, for example, since the user can do that on their own. But you should default to mounting ephemeral drives, because they're free and provide a lot of disk space.
+
+» Memory
+Like disk space, finding the right balance of the default amount of memory is important. For most providers, the user can modify the memory with the Vagrantfile, so do not use too much by default. It would be a poor user experience (and mildly shocking) if a vagrant up from a base box instantly required many gigabytes of RAM. Instead, choose a value such as 512MB, which is usually enough to play around and do interesting things with a Vagrant machine, but can easily be increased when needed.
+
+» Peripherals (Audio, USB, etc.)
+Disable any non-necessary hardware in a base box such as audio and USB controllers. These are generally unnecessary for Vagrant usage and, again, can be easily added via the Vagrantfile in most cases.
+
+» Password-less Sudo
+This is important!. Many aspects of Vagrant expect the default SSH user to have passwordless sudo configured. This lets Vagrant configure networks, mount synced folders, install software, and more.
+
+To begin, some minimal installations of operating systems do not even include sudo by default. Verify that you install sudo in some way.
+
+After installing sudo, configure it (usually using visudo) to allow passwordless sudo for the "vagrant" user. This can be done with the following line at the end of the configuration file:
+
+vagrant ALL=(ALL) NOPASSWD: ALL
+
+Provisioning
+------------
+Provisioners in Vagrant allow you to automatically install software, alter configurations, and more on the machine as part of the vagrant up process.
+
+This is useful since boxes typically are not built perfectly for your use case. Of course, if you want to just use vagrant ssh and install the software by hand, that works. But by using the provisioning systems built-in to Vagrant, it automates the process so that it is repeatable. Most importantly, it requires no human interaction, so you can vagrant destroy and vagrant up and have a fully ready-to-go work environment with a single command. Powerful.
+
+Vagrant gives you multiple options for provisioning the machine, from simple shell scripts to more complex, industry-standard configuration management systems.
+
+If you've never used a configuration management system before, it is recommended you start with basic shell scripts for provisioning.
+
+You can find the full list of built-in provisioners and usage of these provisioners in the navigational area to the left.
+When Provisioning Happens
+Provisioning happens at certain points during the lifetime of your Vagrant environment:
+
+On the first vagrant up that creates the environment, provisioning is run. If the environment was already created and the up is just resuming a machine or booting it up, they will not run unless the --provision flag is explicitly provided.
+
+When vagrant provision is used on a running environment.
+
+When vagrant reload --provision is called. The --provision flag must be present to force provisioning.
+
+You can also bring up your environment and explicitly not run provisioners by specifying --no-provision.
+
+Forwarded Ports(forwarded_port):
+--------------------------------
+Vagrant forwarded ports allow you to access a port on your host machine and have all data forwarded to a port on the guest machine, over either TCP or UDP.
+
+For example: If the guest machine is running a web server listening on port 80, you can make a forwarded port mapping to port 8080 (or anything) on your host machine. You can then open your browser to localhost:8080 and browse the website, while all actual network data is being sent to the guest.
+
+Vagrant.configure("2") do |config|
+  config.vm.network "forwarded_port", guest: 80, host: 8080
+end
+This will allow accessing port 80 on the guest via port 8080 on the host.
+
+Port Collisions and Correction
+-------------------------------
+Vagrant.configure("2") do |config|
+  config.vm.network "forwarded_port", guest: 80, host: 8080,
+    auto_correct: true
+end
+
+You can define allowed port range assignable by Vagrant when port collision is detected via config.vm.usable_port_range property.
+
+Vagrant.configure("2") do |config|
+  config.vm.usable_port_range = 8000..8999
+end
+
+Private Networks(private_network):
+----------------------------------
+Vagrant private networks allow you to access your guest machine by some address that is not publicly accessible from the global internet. In general, this means your machine gets an address in the private address space.
+
+Multiple machines within the same private network (also usually with the restriction that they're backed by the same provider) can communicate with each other on private networks.
+
+» DHCP
+The easiest way to use a private network is to allow the IP to be assigned via DHCP.
+
+Vagrant.configure("2") do |config|
+  config.vm.network "private_network", type: "dhcp"
+end
+This will automatically assign an IP address from the reserved address space. The IP address can be determined by using vagrant ssh to SSH into the machine and using the appropriate command line tool to find the IP, such as ifconfig.
+
+» Static IP
+You can also specify a static IP address for the machine. This lets you access the Vagrant managed machine using a static, known IP. The Vagrantfile for a static IP looks like this:
+
+Vagrant.configure("2") do |config|
+  config.vm.network "private_network", ip: "192.168.50.4"
+end
+It is up to the users to make sure that the static IP does not collide with any other machines on the same network.
+
+While you can choose any IP you would like, you should use an IP from the reserved private address space. These IPs are guaranteed to never be publicly routable, and most routers actually block traffic from going to them from the outside world.
+
+Public Networks(public_network)
+-------------------------------
+Vagrant public networks are less private than private networks, and the exact meaning actually varies from provider to provider, hence the ambiguous definition. The idea is that while private networks should never allow the general public access to your machine, public networks can.
+Warning! Vagrant boxes are insecure by default and by design, featuring public passwords, insecure keypairs for SSH access, and potentially allow root access over SSH. With these known credentials, your box is easily accessible by anyone on your network. Before configuring Vagrant to use a public network, consider all potential security implications and review the default box configuration to identify potential security risks.
+
+» DHCP
+The easiest way to use a public network is to allow the IP to be assigned via DHCP. In this case, defining a public network is trivially easy:
+
+Vagrant.configure("2") do |config|
+  config.vm.network "public_network"
+end
+
+Synced Folders
+---------------
+Synced folders enable Vagrant to sync a folder on the host machine to the guest machine, allowing you to continue working on your project's files on your host machine, but use the resources in the guest machine to compile or run your project.
+
+By default, Vagrant will share your project directory (the directory with the Vagrantfile) to /vagrant.
+
+Synced folders are configured within your Vagrantfile using the config.vm.synced_folder method. Usage of the configuration directive is very simple:
+
+Vagrant.configure("2") do |config|
+  # other config here
+
+  config.vm.synced_folder "src/", "/srv/website"
+end

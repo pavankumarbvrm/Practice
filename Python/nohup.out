@@ -1,0 +1,24 @@
+[I 13:02:20.032 NotebookApp] Serving notebooks from local directory: /Users/pavankumartalla/Desktop/100-Days-of-DevOps/Practice-Session/Python
+[I 13:02:20.032 NotebookApp] The Jupyter Notebook is running at:
+[I 13:02:20.032 NotebookApp] http://localhost:8888/?token=5a025342db5ed9b2b84069fd9c48dc362b2e510b51d5b0b3
+[I 13:02:20.032 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 13:02:20.038 NotebookApp] 
+    
+    To access the notebook, open this file in a browser:
+        file:///Users/pavankumartalla/Library/Jupyter/runtime/nbserver-32473-open.html
+    Or copy and paste one of these URLs:
+        http://localhost:8888/?token=5a025342db5ed9b2b84069fd9c48dc362b2e510b51d5b0b3
+[I 13:04:37.363 NotebookApp] Kernel started: a9cc9b4c-eaad-463b-a50e-9219717ee8cd
+[I 13:04:39.713 NotebookApp] Adapting to protocol v5.1 for kernel a9cc9b4c-eaad-463b-a50e-9219717ee8cd
+[I 13:23:52.711 NotebookApp] Saving file at /Untitled.ipynb
+[I 14:17:32.853 NotebookApp] Starting buffering for a9cc9b4c-eaad-463b-a50e-9219717ee8cd:3f844083ea2d444baeb534bbe2afdd89
+[I 14:17:34.898 NotebookApp] Adapting to protocol v5.1 for kernel a9cc9b4c-eaad-463b-a50e-9219717ee8cd
+[I 14:23:34.790 NotebookApp] Saving file at /Untitled.ipynb
+[I 14:23:46.326 NotebookApp] Starting buffering for a9cc9b4c-eaad-463b-a50e-9219717ee8cd:626ea3703f4248b183a8259bbba67edd
+[W 14:24:02.351 NotebookApp] Notebook Untitled.ipynb is not trusted
+[I 14:24:02.717 NotebookApp] Adapting to protocol v5.1 for kernel a9cc9b4c-eaad-463b-a50e-9219717ee8cd
+[I 14:26:03.290 NotebookApp] Saving file at /Untitled.ipynb
+[I 14:45:27.070 NotebookApp] Starting buffering for a9cc9b4c-eaad-463b-a50e-9219717ee8cd:cae9f965150448b68cf9639a1bfb3ba2
+[C 21:37:43.304 NotebookApp] received signal 15, stopping
+[I 21:37:43.379 NotebookApp] Shutting down 1 kernel
+[I 21:37:43.691 NotebookApp] Kernel shutdown: a9cc9b4c-eaad-463b-a50e-9219717ee8cd

@@ -1,0 +1,53 @@
+» Template User Variables
+User variables allow your templates to be further configured with variables from the command-line, environment variables, Vault, or files. This lets you parameterize your templates so that you can keep secret tokens, environment-specific data, and other types of information out of your templates. This maximizes the portability of the template.
+
+In order to set a user variable, you must define it either within the variables section within your template, or using the command-line -var or -var-file flags.
+
+Even if you want a user variable to default to an empty string, it is best to explicitly define it. This explicitness helps reduce the time it takes for newcomers to understand what can be modified using variables in your template.
+
+The variables section is a key/value mapping of the user variable name to a default value. A default value can be the empty string.
+
+In the above example, the template defines two user variables: aws_access_key and aws_secret_key. They default to empty values. Later, the variables are used within the builder we defined in order to configure the actual keys for the Amazon builder.
+
+If the default value is null, then the user variable will be required. This means that the user must specify a value for this variable or template validation will fail.
+
+User variables are used by calling the {{user}} function in the form of {{user `variable`}}. This function can be used in any value but type within the template: in builders, provisioners, anywhere outside the variables section. User variables are available globally within the rest of the template.
+
+» Environment Variables
+
+Environment variables can be used within your template using user variables. The env function is available only within the default value of a user variable, allowing you to default a user variable to an environment variable. 
+{
+  "variables": {
+    "my_secret": "{{env `MY_SECRET`}}",
+  }
+}
+This will default "my_secret" to be the value of the "MY_SECRET" environment variable (or an empty string if it does not exist).
+
+» Vault Variables
+Secrets can be read from Vault and used within your template as user variables. the vault function is available only within the default value of a user variable, allowing you to default a user variable to an environment variable.
+
+An example of using a v2 kv engine:
+
+If you store a value in vault using vault kv put secret/hello foo=world, you can access it using the following template engine:
+
+{
+  "variables": {
+    "my_secret": "{{ vault `/secret/data/hello` `foo`}}"
+  }
+}
+which will assign "my_secret": "world"
+
+If you store a value in vault using:
+
+vault secrets enable -version=1 -path=secrets kv
+vault kv put secrets/hello foo=world
+You can access it using the following template engine:
+
+{
+  "variables": {
+    "VAULT_SECRETY_SECRET": "{{ vault `secrets/hello` `foo`}}"
+  }
+}
+This example accesses the Vault path secret/data/foo and returns the value stored at the key bar, storing it as "my_secret".
+
+In order for this to work, you must set the environment variables VAULT_TOKEN and VAULT_ADDR to valid values.

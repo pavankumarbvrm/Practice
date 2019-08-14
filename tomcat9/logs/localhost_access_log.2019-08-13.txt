@@ -1,0 +1,6 @@
+10.0.2.2 - - [13/Aug/2019:02:35:26 +0000] "GET /jenkins/ HTTP/1.1" 403 829
+10.0.2.2 - - [13/Aug/2019:02:35:29 +0000] "GET /jenkins/login?from=%2Fjenkins%2F HTTP/1.1" 200 871
+10.0.2.2 - - [13/Aug/2019:02:35:29 +0000] "GET /jenkins/static/fe079207/css/simple-page.css HTTP/1.1" 200 1329
+10.0.2.2 - - [13/Aug/2019:02:35:29 +0000] "GET /jenkins/static/fe079207/css/simple-page.theme.css HTTP/1.1" 200 1021
+10.0.2.2 - - [13/Aug/2019:02:35:29 +0000] "GET /jenkins/static/fe079207/css/simple-page-forms.css HTTP/1.1" 200 568
+10.0.2.2 - - [13/Aug/2019:02:35:29 +0000] "GET /jenkins/static/fe079207/images/jenkins.svg HTTP/1.1" 200 16255

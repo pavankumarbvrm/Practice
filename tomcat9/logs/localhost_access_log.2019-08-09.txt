@@ -1,0 +1,6 @@
+10.0.2.2 - - [09/Aug/2019:04:28:38 +0000] "POST /jenkins/ajaxBuildQueue HTTP/1.1" 403 1047
+10.0.2.2 - - [09/Aug/2019:04:28:38 +0000] "POST /jenkins/ajaxExecutors HTTP/1.1" 403 1047
+10.0.2.2 - - [09/Aug/2019:04:45:47 +0000] "POST /jenkins/ajaxBuildQueue HTTP/1.1" 403 1047
+10.0.2.2 - - [09/Aug/2019:04:45:47 +0000] "POST /jenkins/ajaxExecutors HTTP/1.1" 403 1047
+10.0.2.2 - - [09/Aug/2019:04:45:53 +0000] "GET /jenkins/ HTTP/1.1" 200 5958
+10.0.2.2 - - [09/Aug/2019:04:45:55 +0000] "GET /jenkins/static/fe079207/favicon.ico HTTP/1.1" 200 17542
